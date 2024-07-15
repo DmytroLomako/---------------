@@ -1,12 +1,13 @@
 import pygame
 from .settings import Person
+from .map import game_matrix
 
 class Hero(Person):
     def __init__(self, width, height, x, y, image_name, speed, gravity, jump_height):
         super().__init__(width, height, x, y, image_name, speed, gravity)
         self.JUMP_COUNT = 0 
         self.JUMP_HEIGHT = jump_height 
-        self.count_hearts = 1
+        self.count_hearts = 3
         self.count_animation = 3
         self.direction = 'r'
     def move(self):
@@ -37,19 +38,21 @@ class Hero(Person):
             else:
                 self.load_image()
     def jump(self):
-        keys = pygame.key.get_pressed() # Вызывает все нажатые кнопки
-        self.check_jump() # Вызов метода для проверки стоит ли персонаж на блоке
+        keys = pygame.key.get_pressed() 
+        self.check_jump() 
         if keys[pygame.K_SPACE]:
-            if self.FALL == False: # Проверка не падает ли персонаж
+            if self.FALL == False: 
                 self.JUMP_COUNT = 20
-        if self.JUMP_COUNT > 0: # Если персонаж не падает и стоит на блоке после нажатия кнопки пробел, его переменная = 20
-            self.Y -= self.JUMP_HEIGHT # Персонаж летит вверх на то количевтво которое задано в переменной при создании персонажа
-            self.JUMP_COUNT -= 1 # Делает цыкл повторяться 20 раз для того чтобы он не был бесконечным
+        if self.JUMP_COUNT > 0: 
+            self.Y -= self.JUMP_HEIGHT
+            self.JUMP_COUNT -= 1 
     def enemy_colision(self, enemy):
         rect_hero = pygame.Rect(self.X, self.Y, self.WIDTH, self.HEIGHT)
         rect_enemy = pygame.Rect(enemy.X, enemy.Y, enemy.WIDTH, enemy.HEIGHT)
         if rect_hero.colliderect(rect_enemy):
             self.count_hearts -= 1
+            hero.X = 0
+            hero.Y = 0
     def finish_colision(self, finish):
         rect_hero = pygame.Rect(self.X, self.Y, self.WIDTH, self.HEIGHT)
         rect_finish = pygame.Rect(finish.X, finish.Y, finish.WIDTH, finish.HEIGHT)
@@ -62,5 +65,5 @@ class Hero(Person):
             name_file = 1
             self.count_animation = 3
         folder_name = self.IMAGE_NAME.split('/')[0]
-        self.IMAGE_NAME = f'{folder_name}/{name_file}.png'    
+        self.IMAGE_NAME = f'{folder_name}/{name_file}.png'
 hero = Hero(25, 50, 0, 0, 'Animation/1.png', 3, 4, 5)

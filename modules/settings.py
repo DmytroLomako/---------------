@@ -1,6 +1,6 @@
 import pygame
 import os
-from .map import list_block, game_matrix
+from .map import list_block, game_matrix, list_hearts, list_empty_hearts
 
 screen = pygame.display.set_mode((600, 400))
 pygame.display.set_caption('Game')
@@ -31,7 +31,7 @@ class Person(Image):
         self.CAN_MOVE_L = True 
     def hero_fell(self):
         self.check_fall()
-        if self.JUMP_COUNT == 0: # Проверяет что персонаж не летит вверх
+        if self.JUMP_COUNT == 0:
             if self.FALL:
                 self.Y += self.GRAVITY
     def check_fall(self):
@@ -42,15 +42,15 @@ class Person(Image):
                 break
             else:
                 self.FALL = True
-    def check_move_right(self): # Метод для проверки упераеться ли персонаж в блок идя вправо
-        for block in list_block: # Перебирает все блоки
+    def check_move_right(self): 
+        for block in list_block: 
             
             if self.X + self.WIDTH > block.X - 3 and self.X < block.X + block.WIDTH and self.Y + self.HEIGHT > block.Y and self.Y < block.Y + block.HEIGHT: 
-                self.CAN_MOVE_R = False # Останавливает персонажа в методе move
+                self.CAN_MOVE_R = False 
                 
-                break # останавливает цыкл
+                break 
             else:
-                self.CAN_MOVE_R = True # Если персонаж не упераеться в блок то он может идти вправо
+                self.CAN_MOVE_R = True 
     def check_move_left(self):
         for block in list_block:
             if self.Y + self.HEIGHT > block.Y and self.Y < block.Y + block.HEIGHT and self.X < block.X + block.WIDTH + 3 and self.X + self.WIDTH > block.X:
@@ -75,6 +75,12 @@ for i in game_matrix:
             list_block.append(block)
         elif j == 'f':
             finish = Image(50, 50, x, y, 'finish.png')
+        elif j == 'h1':
+            heart1 = Image(50, 50, x, y, 'heart.png')
+        elif j == 'h2':
+            heart2 = Image(50, 50, x, y, 'heart.png')
+        elif j == 'h3':
+            heart3 = Image(50, 50, x, y, 'heart.png')
         x += 25
 
 
