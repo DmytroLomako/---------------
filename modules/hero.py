@@ -3,11 +3,11 @@ from .settings import Person
 from .map import game_matrix
 
 class Hero(Person):
-    def __init__(self, width, height, x, y, image_name, speed, gravity, jump_height):
+    def __init__(self, width, height, x, y, image_name, speed, gravity, jump_height, count_heart):
         super().__init__(width, height, x, y, image_name, speed, gravity)
         self.JUMP_COUNT = 0 
         self.JUMP_HEIGHT = jump_height 
-        self.count_hearts = 3
+        self.count_hearts = count_heart
         self.count_animation = 3
         self.direction = 'r'
     def move(self):
@@ -51,8 +51,8 @@ class Hero(Person):
         rect_enemy = pygame.Rect(enemy.X, enemy.Y, enemy.WIDTH, enemy.HEIGHT)
         if rect_hero.colliderect(rect_enemy):
             self.count_hearts -= 1
-            hero.X = 0
-            hero.Y = 0
+            self.X = 0
+            self.Y = 0
     def finish_colision(self, finish):
         rect_hero = pygame.Rect(self.X, self.Y, self.WIDTH, self.HEIGHT)
         rect_finish = pygame.Rect(finish.X, finish.Y, finish.WIDTH, finish.HEIGHT)
@@ -66,4 +66,4 @@ class Hero(Person):
             self.count_animation = 3
         folder_name = self.IMAGE_NAME.split('/')[0]
         self.IMAGE_NAME = f'{folder_name}/{name_file}.png'
-hero = Hero(25, 50, 0, 0, 'Animation/1.png', 3, 4, 5)
+

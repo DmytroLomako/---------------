@@ -1,11 +1,11 @@
 from .settings import Person
 
 class Enemy(Person):
-    def __init__(self, width, height, x, y, image_name, speed, gravity, pos1, pos2):
+    def __init__(self, width, height, x, y, image_name, speed, gravity, pos1, pos2, direction):
         super().__init__(width, height, x, y, image_name, speed, gravity)
         self.POS1 = pos1
         self.POS2 = pos2
-        self.DIRECTION = 'r'
+        self.DIRECTION = direction
         self.JUMP_COUNT = 0
     def move_enemy(self):
         self.hero_fell()
@@ -25,4 +25,3 @@ class Enemy(Person):
                 self.DIRECTION = 'r'
             elif self.X < self.POS1:
                 self.DIRECTION = 'r'
-enemy = Enemy(20, 40, 200, 0, 'enemy.png', 2, 4, 180, 350)

@@ -1,0 +1,13 @@
+{
+    "count_heart": 3,
+    "hero_x": 114,
+    "hero_y": 175,
+    "level": 1,
+    "enemies": [
+        {
+            "enemy_x": 300,
+            "enemy_y": 310,
+            "direction": "l"
+        }
+    ]
+}
